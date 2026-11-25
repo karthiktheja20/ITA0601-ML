@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyNk+drGT0f4n5J0g0LaZaAQ",
+      "authorship_tag": "ABX9TyMgYdJeqCkQATbF2inB6fv1",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,85 +28,79 @@
     },
     {
       "cell_type": "code",
-      "source": [
-        "from sklearn.neighbors import KNeighborsClassifier\n",
-        "\n",
-        "X = [[1], [2], [3], [4], [5], [6]]\n",
-        "y = [0, 0, 0, 1, 1, 1]\n",
-        "\n",
-        "model = KNeighborsClassifier(n_neighbors=3)\n",
-        "model.fit(X, y)\n",
-        "\n",
-        "print(\"Prediction:\", model.predict([[5]]))"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "m1Eu-rGtpv78",
-        "outputId": "09bbd7f5-283c-4456-84c6-fb0524b12b82"
-      },
       "execution_count": 1,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "Prediction: [1]\n"
-          ]
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "from sklearn.linear_model import LogisticRegression\n",
-        "\n",
-        "X = [[1], [2], [3], [4], [5], [6]]\n",
-        "y = [0, 0, 0, 1, 1, 1]\n",
-        "\n",
-        "model = LogisticRegression()\n",
-        "model.fit(X, y)\n",
-        "\n",
-        "print(\"Prediction:\", model.predict([[5]]))"
-      ],
       "metadata": {
+        "id": "6wbQPdEhrgXJ",
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "TJ-0od8gqNK4",
-        "outputId": "63dcb9c4-a009-438c-f3a2-28e1fdf8c0f2"
+        "outputId": "98f59f53-7895-492a-b3ad-af26c729bdd6"
       },
-      "execution_count": 2,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "Prediction: [1]\n"
+            "Mean 1: 2.0\n",
+            "Mean 2: 9.0\n",
+            "EM Algorithm Completed\n"
           ]
         }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "data = np.array([1, 2, 3, 8, 9, 10])\n",
+        "\n",
+        "m1, m2 = 2.0, 8.0\n",
+        "v1, v2 = 1.0, 1.0\n",
+        "w1, w2 = 0.5, 0.5\n",
+        "\n",
+        "for i in range(10):\n",
+        "    p1 = w1 * np.exp(-(data-m1)**2/(2*v1)) / np.sqrt(2*np.pi*v1)\n",
+        "    p2 = w2 * np.exp(-(data-m2)**2/(2*v2)) / np.sqrt(2*np.pi*v2)\n",
+        "\n",
+        "    r1 = p1 / (p1+p2)\n",
+        "    r2 = 1-r1\n",
+        "\n",
+        "    w1, w2 = r1.mean(), r2.mean()\n",
+        "    m1 = np.sum(r1*data)/np.sum(r1)\n",
+        "    m2 = np.sum(r2*data)/np.sum(r2)\n",
+        "\n",
+        "print(\"Mean 1:\", round(m1, 2))\n",
+        "print(\"Mean 2:\", round(m2, 2))\n",
+        "print(\"EM Algorithm Completed\")"
       ]
     },
     {
       "cell_type": "code",
       "source": [
-        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
         "\n",
-        "X = [[1], [2], [3], [4], [5]]\n",
-        "y = [2, 4, 6, 8, 10]\n",
+        "X = [\n",
+        "    [50000, 20000, 1],\n",
+        "    [30000, 25000, 0],\n",
+        "    [60000, 10000, 1],\n",
+        "    [25000, 30000, 0],\n",
+        "    [70000, 15000, 1],\n",
+        "    [20000, 35000, 0]\n",
+        "]\n",
         "\n",
-        "model = LinearRegression()\n",
+        "y = [\"Good\", \"Bad\", \"Good\", \"Bad\", \"Good\", \"Bad\"]\n",
+        "\n",
+        "model = DecisionTreeClassifier()\n",
         "model.fit(X, y)\n",
         "\n",
-        "print(\"Prediction:\", model.predict([[6]]))"
+        "result = model.predict([[55000, 12000, 1]])\n",
+        "\n",
+        "print(\"Credit Score:\", result[0])"
       ],
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "AILnUDLUqj5b",
-        "outputId": "2ee06c24-c8b2-4bb1-9289-2d355507bad7"
+        "id": "PWu16NWCAFbv",
+        "outputId": "c40d0d48-96c8-4726-ba05-f7dcccf47a87"
       },
       "execution_count": 3,
       "outputs": [
@@ -114,7 +108,7 @@
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "Prediction: [12.]\n"
+            "Credit Score: Good\n"
           ]
         }
       ]
@@ -122,32 +116,34 @@
     {
       "cell_type": "code",
       "source": [
-        "from sklearn.linear_model import LinearRegression\n",
-        "from sklearn.preprocessing import PolynomialFeatures\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
         "\n",
-        "X = [[1], [2], [3], [4], [5]]\n",
-        "y = [1, 4, 9, 16, 25]\n",
+        "iris = load_iris()\n",
         "\n",
-        "# Linear Regression\n",
-        "l = LinearRegression()\n",
-        "l.fit(X, y)\n",
-        "print(\"Linear:\", l.predict([[6]]))\n",
+        "X = iris.data\n",
+        "y = iris.target\n",
         "\n",
-        "# Polynomial Regression\n",
-        "p = PolynomialFeatures(degree=2)\n",
-        "X_poly = p.fit_transform(X)\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42\n",
+        ")\n",
         "\n",
-        "m = LinearRegression()\n",
-        "m.fit(X_poly, y)\n",
+        "model = KNeighborsClassifier(n_neighbors=3)\n",
+        "model.fit(X_train, y_train)\n",
         "\n",
-        "print(\"Polynomial:\", m.predict(p.transform([[6]])))"
+        "print(\"Accuracy:\", model.score(X_test, y_test))\n",
+        "\n",
+        "result = model.predict([[5.1, 3.5, 1.4, 0.2]])\n",
+        "\n",
+        "print(\"Flower:\", iris.target_names[result[0]])"
       ],
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "y4j3skSGqq5E",
-        "outputId": "f1f966a8-3b26-451e-fd55-0d1c7f7e577e"
+        "id": "BiOw93qEAKtN",
+        "outputId": "8943b1df-460d-4057-c146-958717432364"
       },
       "execution_count": 4,
       "outputs": [
@@ -155,8 +151,8 @@
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "Linear: [29.]\n",
-            "Polynomial: [36.]\n"
+            "Accuracy: 1.0\n",
+            "Flower: setosa\n"
           ]
         }
       ]
