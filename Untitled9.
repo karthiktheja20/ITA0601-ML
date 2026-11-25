@@ -1,0 +1,149 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOVEMsnzQrkxalx4k0cpO1Y",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/karthiktheja20/ITA0601-ML/blob/main/Untitled9.\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "data = {\n",
+        "    'Year': [2015, 2016, 2017, 2018, 2019, 2020],\n",
+        "    'KM': [50000, 40000, 35000, 30000, 20000, 10000],\n",
+        "    'Price': [300000, 350000, 400000, 450000, 500000, 600000]\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "X = df[['Year', 'KM']]\n",
+        "y = df['Price']\n",
+        "\n",
+        "model = LinearRegression()\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "year = int(input(\"Enter car year: \"))\n",
+        "km = int(input(\"Enter kilometers driven: \"))\n",
+        "\n",
+        "prediction = model.predict([[year, km]])\n",
+        "\n",
+        "print(\"Predicted Car Price:\", prediction[0])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "iJuweaQzDHCC",
+        "outputId": "84e9d63a-2c5b-46d7-f091-91ac4aa7c92e"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter car year: 2021\n",
+            "Enter kilometers driven: 1200\n",
+            "Predicted Car Price: 650270.2702702694\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.13/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names\n",
+            "  warnings.warn(\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "data = {\n",
+        "    'Area': [1000, 1200, 1500, 1800, 2000, 2500],\n",
+        "    'Bedrooms': [2, 2, 3, 3, 4, 4],\n",
+        "    'Price': [2000000, 2500000, 3000000, 3500000, 4000000, 5000000]\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "X = df[['Area', 'Bedrooms']]\n",
+        "y = df['Price']\n",
+        "\n",
+        "model = LinearRegression()\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "area = int(input(\"Enter house area: \"))\n",
+        "bedrooms = int(input(\"Enter number of bedrooms: \"))\n",
+        "\n",
+        "prediction = model.predict([[area, bedrooms]])\n",
+        "\n",
+        "print(\"Predicted House Price:\", prediction[0])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IwFLi4fGDMCn",
+        "outputId": "0a3ba1c6-e27f-4030-cad5-55d0cf6593ab"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter house area: 1600\n",
+            "Enter number of bedrooms: 3\n",
+            "Predicted House Price: 3200873.3624454145\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.13/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names\n",
+            "  warnings.warn(\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "hkkvrrpZDWWQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
