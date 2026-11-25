@@ -1,0 +1,185 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOS4Ddrr8JSMdh5EYG2tbMi",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/karthiktheja20/ITA0601-ML/blob/main/lab3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ggTkhZfUlDVa",
+        "outputId": "df4f0fd7-e560-41e3-8f13-3a33660c5e64"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Decision Tree Accuracy: 1.0\n",
+            "KNN Accuracy: 1.0\n",
+            "Logistic Regression Accuracy: 1.0\n",
+            "SVM Accuracy: 1.0\n"
+          ]
+        }
+      ],
+      "source": [
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "from sklearn.linear_model import LogisticRegression\n",
+        "from sklearn.svm import SVC\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "\n",
+        "data = load_iris()\n",
+        "X = data.data\n",
+        "y = data.target\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42)\n",
+        "\n",
+        "models = {\n",
+        "    \"Decision Tree\": DecisionTreeClassifier(),\n",
+        "    \"KNN\": KNeighborsClassifier(),\n",
+        "    \"Logistic Regression\": LogisticRegression(max_iter=200),\n",
+        "    \"SVM\": SVC()\n",
+        "}\n",
+        "\n",
+        "for name, model in models.items():\n",
+        "    model.fit(X_train, y_train)\n",
+        "    pred = model.predict(X_test)\n",
+        "    print(name, \"Accuracy:\", accuracy_score(y_test, pred))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Implement Mobile Price Prediction using appropriate machine\n",
+        "\n",
+        "learning algorithm"
+      ],
+      "metadata": {
+        "id": "OUQ8qz4clgc5"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.datasets import make_classification\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "\n",
+        "X, y = make_classification(\n",
+        "    n_samples=200, n_features=5,\n",
+        "    n_informative=4, n_redundant=0,\n",
+        "    n_classes=4, random_state=42\n",
+        ")\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "model = RandomForestClassifier()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "print(\"Accuracy:\", model.score(X_test, y_test))\n",
+        "print(\"Predicted Price:\", model.predict([X_test[0]]))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_CnJ9HihmKes",
+        "outputId": "7ae750c3-b74a-4225-9f5c-ed7439106fc7"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy: 0.575\n",
+            "Predicted Price: [1]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Implement Perceptron based IRIS classification"
+      ],
+      "metadata": {
+        "id": "iCIJZVrEmXm1"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.linear_model import Perceptron\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "\n",
+        "data = load_iris()\n",
+        "X = data.data\n",
+        "y = data.target\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42)\n",
+        "\n",
+        "model = Perceptron()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "pred = model.predict(X_test)\n",
+        "\n",
+        "print(\"Predicted Values:\", pred)\n",
+        "print(\"Accuracy:\", accuracy_score(y_test, pred))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1hNCgXCKmcHl",
+        "outputId": "0f966117-eccc-4ce7-ef9e-57e44a6e56f3"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Predicted Values: [1 0 2 0 1 0 0 2 1 0 2 0 0 0 0 0 2 0 0 2 0 2 0 2 2 2 2 2 0 0]\n",
+            "Accuracy: 0.8\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
