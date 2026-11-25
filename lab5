@@ -1,0 +1,165 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNk+drGT0f4n5J0g0LaZaAQ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/karthiktheja20/ITA0601-ML/blob/main/lab5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "\n",
+        "X = [[1], [2], [3], [4], [5], [6]]\n",
+        "y = [0, 0, 0, 1, 1, 1]\n",
+        "\n",
+        "model = KNeighborsClassifier(n_neighbors=3)\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "print(\"Prediction:\", model.predict([[5]]))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "m1Eu-rGtpv78",
+        "outputId": "09bbd7f5-283c-4456-84c6-fb0524b12b82"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Prediction: [1]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.linear_model import LogisticRegression\n",
+        "\n",
+        "X = [[1], [2], [3], [4], [5], [6]]\n",
+        "y = [0, 0, 0, 1, 1, 1]\n",
+        "\n",
+        "model = LogisticRegression()\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "print(\"Prediction:\", model.predict([[5]]))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TJ-0od8gqNK4",
+        "outputId": "63dcb9c4-a009-438c-f3a2-28e1fdf8c0f2"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Prediction: [1]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "X = [[1], [2], [3], [4], [5]]\n",
+        "y = [2, 4, 6, 8, 10]\n",
+        "\n",
+        "model = LinearRegression()\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "print(\"Prediction:\", model.predict([[6]]))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AILnUDLUqj5b",
+        "outputId": "2ee06c24-c8b2-4bb1-9289-2d355507bad7"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Prediction: [12.]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.preprocessing import PolynomialFeatures\n",
+        "\n",
+        "X = [[1], [2], [3], [4], [5]]\n",
+        "y = [1, 4, 9, 16, 25]\n",
+        "\n",
+        "# Linear Regression\n",
+        "l = LinearRegression()\n",
+        "l.fit(X, y)\n",
+        "print(\"Linear:\", l.predict([[6]]))\n",
+        "\n",
+        "# Polynomial Regression\n",
+        "p = PolynomialFeatures(degree=2)\n",
+        "X_poly = p.fit_transform(X)\n",
+        "\n",
+        "m = LinearRegression()\n",
+        "m.fit(X_poly, y)\n",
+        "\n",
+        "print(\"Polynomial:\", m.predict(p.transform([[6]])))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "y4j3skSGqq5E",
+        "outputId": "f1f966a8-3b26-451e-fd55-0d1c7f7e577e"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Linear: [29.]\n",
+            "Polynomial: [36.]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
